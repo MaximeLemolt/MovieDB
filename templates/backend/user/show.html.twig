@@ -1,0 +1,40 @@
+{% extends 'backend/back.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block nav_admin %}active{% endblock %}
+{% block subnav_user %}active{% endblock %}
+
+{% block body %}
+    <h1>User</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ user.password }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="row">
+        <a href="{{ path('user_edit', {id: user.id}) }}" class="btn btn-info">Modifier</a>
+        <form class="text-center mx-2" action="{{path('user_delete', {id: user.id})}}" method="POST" onsubmit="return confirm('Supprimer l\'utilisateur {{ user.email|escape('js') }} ?')">
+            <input type="hidden" name="_method" value="DELETE"/>
+            <input type="hidden" name="token" value="{{ csrf_token('delete-item') }}"/>
+            <button type="submit" class="btn btn-danger">Supprimer</button>
+        </form>
+    </div>
+{% endblock %}

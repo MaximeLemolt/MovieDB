@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block subnav %}
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link rounded-0 {% block subnav_movie %}{% endblock %}" href="{{ path('backend_movie_list') }}">Films</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link rounded-0 {% block subnav_job %}{% endblock %}" href="{{ path('backend_job_list') }}">Métiers</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link rounded-0 {% block subnav_user %}{% endblock %}" href="{{ path('user_list') }}">Utilisateurs</a>
+    </li>
+</ul>
+
+{% endblock %}

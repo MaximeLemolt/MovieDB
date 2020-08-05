@@ -1,0 +1,40 @@
+{% extends "backend/back.html.twig" %}
+
+{% block title %}{{ movie.title }}{% endblock %}
+
+{% block nav_admin %}active{% endblock %}
+{% block subnav_movie %}active{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+
+        <div class="card col-12 mb-3">
+            <div class="card-body">
+                <h3 class="card-title">{{ movie.title }}</h3>
+
+                <div class="card-subtitle mb-2">
+                    {# On affiche les genres #}
+                    {% for genre in movie.genres %}
+                        <span class="badge badge-info">{{ genre.name }}</span>
+                    {% endfor %}
+                </div>
+
+                <ul class="list-group list-group-flush mb-3">
+                    <li class="list-group-item px-0">Mis à jour le {{ movie.updatedAt|format_datetime('full', locale='fr') }}</li>
+                </ul>
+
+                <div class="row">
+                    <a href="{{ path('backend_movie_edit', {id: movie.id}) }}" class="btn btn-info">Modifier</a>
+                    <form class="text-center mx-2" action="{{path('backend_movie_delete', {id: movie.id})}}" method="POST" onsubmit="return confirm('Supprimer le film {{ movie.title|escape('js') }} ?')">
+                        <input type="hidden" name="_method" value="DELETE"/>
+                        <input type="hidden" name="token" value="{{ csrf_token('delete-item') }}"/>
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

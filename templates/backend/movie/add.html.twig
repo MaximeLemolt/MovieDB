@@ -1,0 +1,32 @@
+{% extends 'backend/back.html.twig' %}
+
+{% block title %}Ajouter un film{% endblock %}
+
+{% block nav_admin %}active{% endblock %}
+{% block subnav_movie %}active{% endblock %}
+
+{% block body %}
+
+    <h1>Ajouter un film</h1>
+
+    {# Balise ouverture du form #}
+    {{ form_start(form, {'attr': {novalidate: 'novalidate', id: 'movie-form'}}) }}
+
+        {# Affiche tous les champs du form #}
+        {# form_widget(form) #}
+
+        {# Affiche un champ #}
+        {{ form_row(form.title, {label: 'Titre du film'}) }}
+        {{ form_row(form.genres, {label: 'Genres'}) }}
+
+        {# Bouton de soumission du form #}
+        <button type="submit" class="btn btn-success">Ajouter</button>
+
+    {# Balise fermeture du form #}
+    {{ form_end(form) }}
+
+    <hr>
+
+    <a href="{{ path('backend_movie_list') }}">Retour à la liste</a>
+
+{% endblock %}

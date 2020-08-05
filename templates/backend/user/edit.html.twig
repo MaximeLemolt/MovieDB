@@ -1,0 +1,16 @@
+{% extends 'backend/back.html.twig' %}
+
+{% block title %}Modifier un utilisateur{% endblock %}
+
+{% block nav_admin %}active{% endblock %}
+{% block subnav_user %}active{% endblock %}
+
+{% block body %}
+    <h1>Modifier un utilisateur</h1>
+
+    {# Flash messagges #}
+    {{ include('backend/fragments/_flash.html.twig') }}
+
+    {{ include('backend/user/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+{% endblock %}

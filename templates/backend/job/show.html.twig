@@ -1,0 +1,37 @@
+{% extends "backend/back.html.twig" %}
+
+{% block title %}{{ job.name }}{% endblock %}
+
+{% block nav_admin %}active{% endblock %}
+{% block subnav_job %}active{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+
+        <div class="card col-12 mb-3">
+            <div class="card-body">
+                <h3 class="card-title">{{ job.name }}</h3>
+                <h6 class="card-subtitle text-muted">{{ job.department.name }}</h6>
+
+                <ul class="list-group list-group-flush mb-3">
+                    <li class="list-group-item px-0">Mis à jour le {{ job.updatedAt|format_datetime('full', locale='fr') }}</li>
+                </ul>
+
+                <div class="row">
+                    <a href="{{ path('backend_job_edit', {id: job.id}) }}" class="btn btn-info">Modifier</a>
+                    <form class="text-center mx-2" action="{{ path('backend_job_delete', {id: job.id}) }}" method="POST" onsubmit="return confirm('Supprimer le film {{ job.name|escape('js') }} ?')">
+                        {# Modification (surcharge) de la méthode HTTP #}
+                        <input type="hidden" name="_method" value="DELETE"/>
+                        {# Token CSRF #}
+                        <input type="hidden" name="token" value="{{ csrf_token('delete-item') }}"/>
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

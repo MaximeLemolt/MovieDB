@@ -1,0 +1,29 @@
+{% extends 'backend/back.html.twig' %}
+
+{% block title %}Ajouter un job{% endblock %}
+
+{% block nav_admin %}active{% endblock %}
+{% block subnav_job %}active{% endblock %}
+
+{% block body %}
+
+    <h1>Ajouter un job</h1>
+
+    {# Balise ouverture du form #}
+    {{ form_start(form) }}
+
+        {# Affiche un champ #}
+        {{ form_row(form.name) }}
+        {{ form_row(form.department) }}
+
+        {# Bouton de soumission du form #}
+        <button type="submit" class="btn btn-success">Ajouter</button>
+
+    {# Balise fermeture du form #}
+    {{ form_end(form) }}
+
+    <hr>
+
+    <a href="{{ path('backend_job_list') }}">Retour à la liste</a>
+
+{% endblock %}

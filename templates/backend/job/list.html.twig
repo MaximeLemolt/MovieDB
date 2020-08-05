@@ -1,0 +1,48 @@
+{% extends 'backend/back.html.twig' %}
+
+{% block title %}Liste des jobs{% endblock %}
+
+{% block nav_admin %}active{% endblock %}
+{% block subnav_job %}active{% endblock %}
+
+{% block body %}
+    <div class="row position-relative">
+        <h1 class="col-12">Admin Jobs</h1>
+
+        <a href="{{ path('backend_job_add') }}" class="btn btn-primary position-absolute mb-3" style="right:0">Ajouter un job</a>
+
+        {# Flash messagges #}
+        {{ include('backend/fragments/_flash.html.twig') }}
+
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Department</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for job in jobs %}
+                    <tr>
+                        <th scope="row">{{ job.id }}</th>
+                        <td><a href="{{ path('backend_job_show', {id: job.id}) }}">{{ job.name }}</a></td>
+                        <td>{{ job.department.name }}</td>
+                        <td class="text-center"><a href="{{ path('backend_job_edit', {id: job.id}) }}" class="btn btn-info">Modifier</a></td>
+                        <td>
+                            <form class="text-center" action="{{ path('backend_job_delete', {id: job.id}) }}" method="POST" onsubmit="return confirm('Supprimer le film {{ job.name|escape('js') }} ?')">
+                                {# Modification (surcharge) de la méthode HTTP #}
+                                <input type="hidden" name="_method" value="DELETE"/>
+                                {# Token CSRF #}
+                                <input type="hidden" name="token" value="{{ csrf_token('delete-item') }}"/>
+                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

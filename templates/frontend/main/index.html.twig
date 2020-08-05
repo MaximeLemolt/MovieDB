@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block nav_home %}active{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        {# On affiche les films #}
+        {% for movie in movies %}
+            <div class="card col-12 col-sm-6 col-md-4 mb-3">
+                {% set imageUrl = movie.poster is not null ? 'uploads/posters/' ~ movie.poster : 'default-movie.jpg' %}
+                <img src="{{ asset(imageUrl) }}" class="img-fluid" alt="poster">
+                <div class="card-body text-center">
+                    <h4 class="card-title"><a href="{{ path('movie_show', {slug: movie.slug}) }}" class="text-body">{{ movie.title }}</a></h4>
+                    <div class="card-subtitle mb-3">
+                        {# On affiche les genres #}
+                        {% for genre in movie.genres %}
+                            <span class="badge badge-info">{{ genre.name }}</span>
+                        {% endfor %}
+                    </div>
+                    <a href="{{ path('movie_show', {slug: movie.slug}) }}" class="card-link">Plus d'informations</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
